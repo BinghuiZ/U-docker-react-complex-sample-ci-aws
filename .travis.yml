@@ -14,4 +14,10 @@ after_success:
   - docker build -t bhzhongudemy/multi-nginx ./nginx
   - docker build -t bhzhongudemy/multi-server ./server
   - docker build -t bhzhongudemy/multi-worker ./worker
-
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push bhzhongudemy/multi-client
+  - docker push bhzhongudemy/multi-nginx
+  - docker push bhzhongudemy/multi-server
+  - docker push bhzhongudemy/multi-worker
