@@ -1,0 +1,17 @@
+language: generic 
+sudo: required
+services:
+ - docker
+
+before_install:
+  - docker build -t bhzhongudemy/react-test -f ./client/Dockerfile.dev ././client/Dockerfile.dev
+
+script:
+  - docker run -e CI=true bhzhongudemy/react-test npm run test
+
+after_success:
+  - docker build -t bhzhongudemy/multi-client ./client
+  - docker build -t bhzhongudemy/multi-nginx ./nginx
+  - docker build -t bhzhongudemy/multi-server ./server
+  - docker build -t bhzhongudemy/multi-worker ./worker
+
