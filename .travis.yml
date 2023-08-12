@@ -22,3 +22,15 @@ after_success:
   - docker push binghuiz/multi-nginx
   - docker push binghuiz/multi-server
   - docker push binghuiz/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-056251561631'
+  bucket_path: 'docker-multi'
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
